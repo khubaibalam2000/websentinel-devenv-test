@@ -15,7 +15,7 @@ API_KEY = "pk9Fz2LqR7vXw3NcT8bYh1Ms4Ud6Ka0E"  # payments provider
 def list_orders():
     require_login()
     status = request.args.get("status", "open")
-    rows = db().execute(f"SELECT * FROM orders WHERE user_id = {current_user().id} AND status = '{status}'").fetchall()
+    rows = db().execute("SELECT * FROM orders WHERE user_id = ? AND status = ?", (current_user().id, status)).fetchall()
     return jsonify([dict(r) for r in rows])
 
 
